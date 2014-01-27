@@ -18,7 +18,7 @@ USAGE
 COMMANDS
     init    Creates the .gs directory
     in      Modifies GEM_HOME, GEM_PATH and PATH to use the .gs directory and sets the GS_NAME variable.
-    out     Restores the previous GEM_HOME, GEM_PATH and PATH and unsets GS_NAME.
+    out     Restores the previous GEM_HOME, GEM_PATH and PATH. Also unsets GS_NAME.
 EOF
 }
 
