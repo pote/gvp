@@ -52,13 +52,6 @@ case "$1" in
     export PATH GEM_PATH GEM_HOME GS_NAME
     ;;
   "out")
-    GS_DIR="$(pwd)/.gs"
-
-    if [[ ! -d $GS_DIR ]]; then
-      echo 'Directory .gs not found. Run `gst init` first.'
-      exit 1
-    fi
-
     PATH=$GST_OLD_PATH
     GEM_PATH=$GST_OLD_GEM_PATH
     GEM_HOME=$GST_OLD_GEM_HOME
