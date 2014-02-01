@@ -1,16 +1,19 @@
-GST
-===
+## gvp - Go Versioning Packager
 
-`gst` is like [gs](http://github.com/soveran/gs). The t is for Tonchis.
+`gvp` is a fork of [gst](http://github.com/tonchis/gst) but aimed at Go development. The `p` secretly stands for `pote`.
 
-TL;DR
------
-`gst` is a gemset manager inspired by [gs](http://github.com/soveran/gs).
-The difference is that it stays in the same shell and just modifies gem env variables.
-To be compatible with `gs`, it uses a `.gs` directory and sets the `GS_NAME` variable.
+### TL;DR
 
-USAGE
------
+`gvp` stands for Go Vendoring Packager and provides a simple to use way to isolate the dependencies of a Go project.
+
+The tool modifies your `GOPATH` to point to a local `.godeps/` directory so that you can keep the dependencies of
+your project isolated there, it also modifies `GOBIN` and `PATH` to include the new `$GOPATH/bin` directory.
+
+gvp is a companion tool to [gpm](http://github.com/pote/gpm), the Go Package Manager.
+
+
+### Usage
+
 Since `gst` is a script and runs in a child environment of your shell, the latter will not take the env changes unless you `source` them.
 
 ```shell
@@ -19,23 +22,23 @@ $ source gst in
 $ source gst out
 ```
 
-COMMANDS
---------
+### Commands
 
 ```shell
-init    Creates the .gs directory
-in      Modifies GEM_HOME, GEM_PATH and PATH to use the .gs directory and sets the GS_NAME variable.
-out     Restores the previous GEM_HOME, GEM_PATH and PATH. Also unsets GS_NAME.
+init    Creates the .godeps directory
+in      Modifies GOPATH, GOBIN and PATH to use the .godeps
+out     Restores the previous GOPATH, GOBIN and PATH.
 ```
 
-WHY?
-----
+### Why?
 
-As I was using `gs` I noticed it wouldn't play well with `chruby`.
+Dependencies of multiple Go projects are by far easier to handle in isolation, using plain [gpm](http://github.com/pote/gpm)
+to handle your dependencies means that you are forced to run it again every time you work on a new project, this can get old
+quickly.
 
-The issue was the collision between the way `gs` works, by modifying the `gem` env variables and firing up a new shell with them, and the fact that `chruby` also sets those variables when using the `autoload` script or the `chruby` command.
+Using `gvp` can greatly simplify your workflow, by isolating your Go project dependencies you only need to run `source gvp in`
+in order to be back in the work environment of your application, this means that there will never be Go packages installed in
+your system which will conflict in versioning across your different projects.
 
-The last one being in my `.zshrc` script, it was stepping over `gs`'s work.
-
-Thus I decided to write my own gemset manager that doesn't run a new shell, but uses the current one.
-
+If for some reason you need to ship your repository with its dependencies included this is also of help, but including a
+`Godeps` file to use with gpm will probably be your best option.
