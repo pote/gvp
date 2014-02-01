@@ -14,12 +14,12 @@ gvp is a companion tool to [gpm](http://github.com/pote/gpm), the Go Package Man
 
 ### Usage
 
-Since `gst` is a script and runs in a child environment of your shell, the latter will not take the env changes unless you `source` them.
+Since `gvp` is a script and runs in a child environment of your shell, the latter will not take the env changes unless you `source` them.
 
 ```shell
-$ gst init
-$ source gst in
-$ source gst out
+$ gvp init
+$ source gvp in
+$ source gvp out
 ```
 
 ### Commands
