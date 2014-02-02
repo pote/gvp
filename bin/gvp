@@ -21,9 +21,11 @@ USAGE
       $ source gvp out
 
 COMMANDS
-    init    Creates the .godeps directory.
-    in      Modifies GOPATH and GOBIN to use the .godeps directory and sets the GVP_NAME variable.
-    out     Restores the previous GOPATH and GOBIN and unsets GVP_NAME.
+    init      Creates the .godeps directory.
+    in        Modifies GOPATH and GOBIN to use the .godeps directory and sets the GVP_NAME variable.
+    out       Restores the previous GOPATH and GOBIN and unsets GVP_NAME.
+    version   outputs version information.
+    help      prints this message.
 EOF
 }
 
@@ -35,13 +37,16 @@ fi
 case "$1" in
   "init")
     mkdir .godeps;;
+  "version")
+    echo ">> gvt v0.1.0"
+    ;;
   "in")
     if [[ -n $GVP_NAME ]]; then return; fi
 
     GVP_DIR="$(pwd)/.godeps"
 
     if [[ ! -d $GVP_DIR ]]; then
-      echo 'Directory .godeps not found. Run `gvp init` first.'
+      echo '>> Directory .godeps not found. Run `gvp init` first.'
       exit 1
     fi
 
@@ -56,6 +61,7 @@ case "$1" in
     PATH="$GVP_DIR/bin":$PATH
 
     export GOBIN GOPATH GVP_NAME PATH
+    echo ">> Local GOPATH set."
     ;;
   "out")
     if [[ -z $GVP_NAME ]]; then return; fi
@@ -66,6 +72,7 @@ case "$1" in
 
     export PATH GOPATH GOBIN
     unset GVP_OLD_GOPATH GVP_OLD_GOBIN GVP_OLD_PATH GVP_NAME
+    echo ">> Reverted to system GOPATH."
     ;;
   *)
     usage
