@@ -26,6 +26,54 @@ version   outputs version information.
 help      prints this message.
 ```
 
+### Example
+
+```
+$ ls
+Godeps foo.go foo_test.go
+
+$ gvp init
+$ source gvp in
+
+$ gpm install
+>> Getting package github.com/nu7hatch/gotrail
+>> Getting package github.com/replicon/fast-archiver
+>> Getting package launchpad.net/gocheck
+>> Getting package code.google.com/p/go.example/hello/...
+>> Setting github.com/replicon/fast-archiver to version v1.02
+>> Setting github.com/nu7hatch/gotrail to version v0.0.2
+>> Setting code.google.com/p/go.example/hello/... to version ae081cd1d6cc
+>> All Done
+
+$ tree .godeps/
+.godeps/
+└── src
+    ├── github.com
+    │   ├── nu7hatch
+    │   │   └── gotrail
+    │   │       ├── README.md
+    │   │       └── log.go
+    │   └── replicon
+    │       └── fast-archiver
+    │           ├── FILE-FORMAT.rst
+    │           ├── LICENSE
+    │           ├── README.rst
+    │           ├── build.sh
+    │           ├── falib
+    │           │   ├── archiver.go
+    │           │   ├── block.go
+    │           │   ├── errors.go
+    │           │   ├── logger.go
+    │           │   ├── unarchiver.go
+    │           │   ├── util_unix.go
+    │           │   └── util_windows.go
+    │           ├── main.go
+    │           └── mktest.sh
+    └── launchpad.net
+        └── gocheck
+```
+
+
 ### Why?
 
 Dependencies of multiple Go projects are by far easier to handle in isolation, using plain [gpm](http://github.com/pote/gpm)
