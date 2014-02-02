@@ -1,4 +1,4 @@
-## gvp - Go Versioning Packager
+## Go Versioning Packager [![Build Status](https://travis-ci.org/pote/gvp.png?branch=master)](https://travis-ci.org/pote/gvp)
 
 gvp stands for Go Vendoring Packager and is based on [gst](http://github.com/tonchis/gst), a similar tool that provides vendoring functionality for Ruby gems.
 
