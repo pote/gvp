@@ -1,16 +1,13 @@
 ## gvp - Go Versioning Packager
 
-`gvp` is a fork of [gst](http://github.com/tonchis/gst) but aimed at Go development. The `p` secretly stands for `pote`.
+gvp is a fork of [gst](http://github.com/tonchis/gst) but aimed at Go development. The `p` secretly stands for `pote`.
 
-### TL;DR
 
-`gvp` stands for Go Vendoring Packager and provides a simple to use way to isolate the dependencies of a Go project.
+gvp stands for Go Vendoring Packager and is based on [gst](http://github.com/tonchis/gst), a similar tool that provides vendoring functionality for Ruby gems.
 
-The tool modifies your `GOPATH` to point to a local `.godeps/` directory so that you can keep the dependencies of
-your project isolated there, it also modifies `GOBIN` and `PATH` to include the new `$GOPATH/bin` directory.
+The tool modifies your GOPATH to point to a local .godeps/ directory so that you can keep the dependencies of your project isolated there, it also modifies GOBIN and PATH to include the new GOPATH/bin directory.
 
-gvp is a companion tool to [gpm](http://github.com/pote/gpm), the Go Package Manager.
-
+gvp is a companion tool to [gpm](http://github.com/pote/gpm) the Go Package Manager.
 
 ### Usage
 
@@ -28,6 +25,8 @@ $ source gvp out
 init    Creates the .godeps directory
 in      Modifies GOPATH, GOBIN and PATH to use the .godeps
 out     Restores the previous GOPATH, GOBIN and PATH.
+version   outputs version information.
+help      prints this message.
 ```
 
 ### Why?
