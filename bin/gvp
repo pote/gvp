@@ -4,7 +4,7 @@ cat << EOF
 usage: gst [COMMAND]
 
 SYNOPSIS
-    gvp stands for Go Vendoring Packager and is based on [gst](http://github.com/tonchis/gst),
+    gvp stands for Go Versioning Packager and is based on [gst](http://github.com/tonchis/gst),
     a similar tool that provides vendoring functionality for Ruby gems.
 
     The tool modifies your GOPATH to point to a local .godeps/ directory so that you
