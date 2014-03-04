@@ -8,7 +8,7 @@ gvp is a companion tool to [gpm](http://github.com/pote/gpm), the Go Package Man
 
 #### Example usage: Go Dependency Management and Vendoring with [gpm](https://github.com/pote/gpm) + gvp:
 
-![gpm + gvp usage](./usage.gif)
+![gpm + gvp usage](./gpm_install.gif)
 
 
 ### Usage
