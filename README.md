@@ -6,7 +6,7 @@ The tool modifies your `GOPATH` to point to a local `.godeps/` directory so that
 
 gvp is a companion tool to [gpm](http://github.com/pote/gpm), the Go Package Manager.
 
-## Go package versioning and vendoring in one simple gif## Example usage: Go Dependency Management and Vendoring with [gpm](https://github.com/pote/gpm) + gvp:
+#### Example usage: Go Dependency Management and Vendoring with [gpm](https://github.com/pote/gpm) + gvp:
 
 ![gpm + gvp usage](./usage.gif)
 
