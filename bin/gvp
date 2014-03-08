@@ -47,7 +47,7 @@ case "$1" in
 
     if [[ ! -d $GVP_DIR ]]; then
       echo '>> Directory .godeps not found. Run `gvp init` first.'
-      exit 1
+      kill -INT $$
     fi
 
     GVP_OLD_GOPATH=$GOPATH
