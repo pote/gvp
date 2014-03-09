@@ -55,7 +55,7 @@ case "$1" in
     GVP_OLD_GOPATH=$GOPATH
     GVP_OLD_GOBIN=$GOBIN
     GVP_OLD_PATH=$PATH
-    export GVP_OLD_GOPATH PATH
+    export GVP_OLD_GOPATH GVP_OLD_GOBIN PATH
 
     GVP_NAME=$(pwd | sed -E "s/^.*\/(.*)$/\\1/")
     GOBIN="$GVP_DIR/bin":$GOBIN
@@ -72,7 +72,7 @@ case "$1" in
   "out")
     if [[ -z $GVP_NAME ]]; then kill -INT $$; fi
 
-    GOBIN=$GVP_OLD_BIN_PATH
+    GOBIN=$GVP_OLD_GOBIN
     GOPATH=$GVP_OLD_GOPATH
     PATH=$GVP_OLD_PATH
 
