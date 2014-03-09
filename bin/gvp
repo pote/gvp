@@ -1,7 +1,7 @@
 #!/bin/bash
 usage() {
 cat << EOF
-usage: gst [COMMAND]
+usage: gvp [COMMAND]
 
 SYNOPSIS
     gvp stands for Go Versioning Packager and is based on [gst](http://github.com/tonchis/gst),
@@ -23,13 +23,15 @@ USAGE
 COMMANDS
     init      Creates the .godeps directory.
     in        Modifies GOPATH and GOBIN to use the .godeps directory and sets the GVP_NAME variable.
+              This can also be used to execute a comand in the environment without sourcing it.
+              For example: "gvp in go build"
     out       Restores the previous GOPATH and GOBIN and unsets GVP_NAME.
     version   outputs version information.
     help      prints this message.
 EOF
 }
 
-if [[ "$#" -ne 1 ]]; then
+if [[ "$1" != "in" && "$#" -ne 1 ]]; then
   usage
   exit 1
 fi
@@ -41,7 +43,7 @@ case "$1" in
     echo ">> gvt v0.1.0"
     ;;
   "in")
-    if [[ -n $GVP_NAME ]]; then return; fi
+    if [[ -n $GVP_NAME ]]; then kill -INT $$; fi
 
     GVP_DIR="$(pwd)/.godeps"
 
@@ -62,9 +64,13 @@ case "$1" in
 
     export GOBIN GOPATH GVP_NAME PATH
     echo ">> Local GOPATH set."
+
+    if [[ -n $2 ]]; then
+      eval ${@:2}
+    fi
     ;;
   "out")
-    if [[ -z $GVP_NAME ]]; then return; fi
+    if [[ -z $GVP_NAME ]]; then kill -INT $$; fi
 
     GOBIN=$GVP_OLD_BIN_PATH
     GOPATH=$GVP_OLD_GOPATH
