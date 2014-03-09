@@ -38,7 +38,7 @@ case "$1" in
   "init")
     mkdir .godeps;;
   "version")
-    echo ">> gvt v0.1.0"
+    echo ">> gvp v0.1.0"
     ;;
   "in")
     if [[ -n $GVP_NAME ]]; then return; fi
