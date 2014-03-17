@@ -11,6 +11,19 @@ gvp is a companion tool to [gpm](http://github.com/pote/gpm), the Go Package Man
 ![gpm + gvp usage](https://raw.github.com/pote/gpm/master/gpm_install.gif)
 
 
+### Install via Homebrew
+
+```bash
+$ brew install gvp
+```
+
+### Install in *nix
+
+$ git clone https://github.com/pote/gvp.git && cd gvp
+$ git checkout v0.0.3 # You can ignore this part if you want to install HEAD.
+$ ./configure
+$ make install
+
 ### Usage
 
 Since `gvp` is a script and runs in a child environment of your shell, the latter will not take the env changes unless you `source` them.
