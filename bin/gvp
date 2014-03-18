@@ -38,7 +38,8 @@ fi
 
 case "$1" in
   "init")
-    mkdir .godeps;;
+    mkdir -p .godeps/{src,pkg,bin}
+    ;;
   "version")
     echo ">> gvp v0.1.0"
     ;;
