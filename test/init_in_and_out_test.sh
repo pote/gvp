@@ -6,10 +6,6 @@ GVP=../bin/gvp
 assert_raises "$GVP init"
 assert_raises "[ -d .godeps ]"
 
-## gvp init should raise an error when .godeps/ exists
-assert_raises "$GVP init" 1
-
-
 ## source gvp in should change the original GOPATH and associated Env variables.
 ORIGINAL_GOPATH=$GOPATH
 ORIGINAL_GOBIN=$GOBIN
