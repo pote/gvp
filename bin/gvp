@@ -41,7 +41,7 @@ case "$1" in
     mkdir -p .godeps/{src,pkg,bin}
     ;;
   "version")
-    echo ">> gvp v0.0.3"
+    echo ">> gvp v0.0.4"
     ;;
   "in")
     if [[ -n $GVP_NAME ]]; then kill -INT $$; fi

@@ -21,7 +21,7 @@ $ brew install gvp
 
 ```bash
 $ git clone https://github.com/pote/gvp.git && cd gvp
-$ git checkout v0.0.3 # You can ignore this part if you want to install HEAD.
+$ git checkout v0.0.4 # You can ignore this part if you want to install HEAD.
 $ ./configure
 $ make install
 ```
