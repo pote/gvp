@@ -67,7 +67,7 @@ case "$1" in
     echo ">> Local GOPATH set."
 
     if [[ -n $2 ]]; then
-      eval ${@:2}
+      "${@:2}"
     fi
     ;;
   "out")
