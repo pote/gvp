@@ -81,8 +81,20 @@ case "$1" in
     unset GVP_OLD_GOPATH GVP_OLD_GOBIN GVP_OLD_PATH GVP_NAME
     echo ">> Reverted to system GOPATH."
     ;;
-  *)
+  "help")
     usage
-    exit 1
     ;;
+  *)
+    ## Support for Plugins: if command is unknown search for a gvp-command executable.
+    if command -v "gvp-$1" > /dev/null
+    then
+      plugin=$1 &&
+      shift     &&
+      gvp-$plugin $@ &&
+      exit
+    else
+      usage && exit 1
+    fi
+    ;;
+
 esac
