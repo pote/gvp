@@ -21,7 +21,7 @@ $ brew install gvp
 
 ```bash
 $ git clone https://github.com/pote/gvp.git && cd gvp
-$ git checkout v0.0.4 # You can ignore this part if you want to install HEAD.
+$ git checkout v0.1.0 # You can ignore this part if you want to install HEAD.
 $ ./configure
 $ make install
 ```
@@ -45,6 +45,16 @@ out     Restores the previous GOPATH, GOBIN and PATH.
 version   outputs version information.
 help      prints this message.
 ```
+
+### PLugins
+
+As of [v0.1.0](https://github.com/pote/gvp/releases/tag/v0.1.0) gvp includes a plugin system very much similar to [the one in gpm](https://github.com/pote/gpm#plugins).
+
+The way gvp plugin work is simple: whenever an unknown command is passed into gvp it will look for an executable in your $PATH called gvp-<command> and if it exists it will run it while passing all extra arguments to it, simple yet powerful.
+
+This brings a lot to the table: plugins can be written in anything, they can be Go binaries, bash scripts, Ruby gems, Python packages, you name it. gvp wants to make it easy for you to extend it. :)
+
+If you happen to write a plugin for gvp: please open [an issue](https://github.com/pote/gvp) so we can compile a list of useful plugins as well as add them to the [gpm homebrew tap](https://github.com/pote/homebrew-gpm_plugins) so users can install them easily.
 
 ### Why?
 
