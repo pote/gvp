@@ -58,7 +58,7 @@ case "$1" in
     GVP_OLD_PATH=$PATH
     export GVP_OLD_GOPATH GVP_OLD_GOBIN PATH
 
-    GVP_NAME=$(pwd | sed -E "s/^.*\/(.*)$/\\1/")
+    GVP_NAME=$(basename $(pwd))
     GOBIN="$GVP_DIR/bin"
     GOPATH="$GVP_DIR:$PWD"
     PATH="$GOBIN:$PATH"
