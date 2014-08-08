@@ -4,7 +4,7 @@ gvp stands for Go Versioning Packager and is based on [gst](http://github.com/to
 
 The tool modifies your `GOPATH` to point to a local `.godeps/` directory so that you can keep the dependencies of your project isolated there, it also modifies `GOBIN` and `PATH` to include the new `GOPATH/bin` directory.
 
-gvp is a companion tool to [gpm](http://github.com/pote/gpm), the Go Package Manager.
+gvp is a companion tool to [gpm](http://github.com/pote/gpm) but both tools can be used independently from each other.
 
 #### Example usage: Go Dependency Management and Vendoring with [gpm](https://github.com/pote/gpm) + gvp:
 
