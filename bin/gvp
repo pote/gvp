@@ -1,4 +1,5 @@
 #!/bin/bash
+
 usage() {
 cat << EOF
 usage: gvp [COMMAND]
@@ -16,70 +17,33 @@ SYNOPSIS
 USAGE
     Since gvp is a script, env changes will not happen unless you source them.
 
-      $ gvp init
-      $ source gvp in
-      $ source gvp out
+      $ source gvp
 
 COMMANDS
-    init      Creates the .godeps directory.
-    in        Modifies GOPATH and GOBIN to use the .godeps directory and sets the GVP_NAME variable.
-              This can also be used to execute a comand in the environment without sourcing it.
-              For example: "gvp in go build"
-    out       Restores the previous GOPATH and GOBIN and unsets GVP_NAME.
-    version   outputs version information.
-    help      prints this message.
+    source gvp      Modifies GOPATH and GOBIN to use the .godeps directory.
+    gvp version     Outputs version information.
+    gvp help        Prints this message.
 EOF
 }
 
-if [[ "$1" != "in" && "$#" -ne 1 ]]; then
-  usage
-  exit 1
-fi
-
-case "$1" in
+case "${1:-"in"}" in
   "init")
+    echo ">> This command is deprecated, just run 'source gvp'."
     mkdir -p .godeps/{src,pkg,bin}
     ;;
   "version")
     echo ">> gvp v0.1.0"
     ;;
   "in")
-    if [[ -n $GVP_NAME ]]; then kill -INT $$; fi
+    mkdir -p .godeps/{src,pkg,bin}
 
     GVP_DIR="$(pwd)/.godeps"
-
-    if [[ ! -d $GVP_DIR ]]; then
-      echo '>> Directory .godeps not found. Run `gvp init` first.'
-      kill -INT $$
-    fi
-
-    GVP_OLD_GOPATH=$GOPATH
-    GVP_OLD_GOBIN=$GOBIN
-    GVP_OLD_PATH=$PATH
-    export GVP_OLD_GOPATH GVP_OLD_GOBIN PATH
-
-    GVP_NAME=$(basename $(pwd))
     GOBIN="$GVP_DIR/bin"
     GOPATH="$GVP_DIR:$PWD"
     PATH="$GOBIN:$PATH"
 
     export GOBIN GOPATH GVP_NAME PATH
     echo ">> Local GOPATH set."
-
-    if [[ -n $2 ]]; then
-      eval ${@:2}
-    fi
-    ;;
-  "out")
-    if [[ -z $GVP_NAME ]]; then kill -INT $$; fi
-
-    GOBIN=$GVP_OLD_GOBIN
-    GOPATH=$GVP_OLD_GOPATH
-    PATH=$GVP_OLD_PATH
-
-    export PATH GOPATH GOBIN
-    unset GVP_OLD_GOPATH GVP_OLD_GOBIN GVP_OLD_PATH GVP_NAME
-    echo ">> Reverted to system GOPATH."
     ;;
   "help")
     usage
@@ -93,8 +57,8 @@ case "$1" in
       gvp-$plugin $@ &&
       exit
     else
+      echo ">> Unknown command."
       usage && exit 1
     fi
     ;;
-
 esac
