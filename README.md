@@ -31,19 +31,15 @@ $ make install
 Since `gvp` is a script and runs in a child environment of your shell, the latter will not take the env changes unless you `source` them.
 
 ```shell
-$ gvp init
-$ source gvp in
-$ source gvp out
+$ source gvp
 ```
 
 ### Commands
 
 ```shell
-init    Creates the .godeps directory
-in      Modifies GOPATH, GOBIN and PATH to use the .godeps
-out     Restores the previous GOPATH, GOBIN and PATH.
-version   outputs version information.
-help      prints this message.
+source gvp    Modifies GOPATH, GOBIN and PATH to use the .godeps directory.
+gvp version   Outputs version information.
+gvp help      Prints this message.
 ```
 
 ### PLugins
