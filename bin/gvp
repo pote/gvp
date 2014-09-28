@@ -32,7 +32,7 @@ case "${1:-"in"}" in
     mkdir -p .godeps/{src,pkg,bin}
     ;;
   "version")
-    echo ">> gvp v0.1.0"
+    echo ">> gvp v0.2.0"
     ;;
   "in")
     mkdir -p .godeps/{src,pkg,bin}
