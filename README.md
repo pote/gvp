@@ -58,7 +58,7 @@ Dependencies of multiple Go projects are by far easier to handle in isolation, u
 to handle your dependencies means that you are forced to run it again every time you work on a new project, this can get old
 quickly.
 
-Using `gvp` can greatly simplify your workflow, by isolating your Go project dependencies you only need to run `source gvp in`
+Using `gvp` can greatly simplify your workflow, by isolating your Go project dependencies you only need to run `source gvp`
 in order to be back in the work environment of your application, this means that there will never be Go packages installed in
 your system which will conflict in versioning across your different projects.
 
