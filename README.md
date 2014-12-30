@@ -1,4 +1,4 @@
-## Go Versioning Packager [![Build Status](https://travis-ci.org/pote/gvp.png?branch=master)](https://travis-ci.org/pote/gvp)
+## Go Versioning Packager [![Build Status](https://travis-ci.org/pote/gvp.png?branch=master)](https://travis-ci.org/pote/gvp) [![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.svg)](https://gratipay.com/pote/)
 
 gvp stands for Go Versioning Packager and is based on [gst](http://github.com/tonchis/gst), a similar tool that provides dependency isolation for Ruby gems.
 
