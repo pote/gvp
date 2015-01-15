@@ -39,7 +39,7 @@ case "${1:-"in"}" in
 
     GVP_DIR="$(pwd)/.godeps"
     GOBIN="$GVP_DIR/bin"
-    GOPATH="$GVP_DIR:$PWD"
+    GOPATH="$GVP_DIR:$PWD:$GOPATH"
     PATH="$GOBIN:$PATH"
 
     export GOBIN GOPATH GVP_NAME PATH
