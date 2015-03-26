@@ -44,6 +44,10 @@ case "${1:-"in"}" in
 
     export GOBIN GOPATH GVP_NAME PATH
     echo ">> Local GOPATH set."
+
+    if [[ -n $2 ]]; then
+      "${@:2}"
+    fi
     ;;
   "help")
     usage
