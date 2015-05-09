@@ -30,14 +30,14 @@ case "${1:-"in"}" in
   "init")
     echo ">> This command is deprecated, just run 'source gvp'."
     mkdir -p .godeps/{src,pkg,bin}
-    ln -s .godeps/bin bin
+    ln -snf .godeps/bin bin
     ;;
   "version")
     echo ">> gvp v0.2.0"
     ;;
   "in")
     mkdir -p .godeps/{src,pkg,bin}
-    ln -s .godeps/bin bin
+    ln -snf .godeps/bin bin
 
     GVP_DIR="$(pwd)/.godeps"
     GOBIN="$GVP_DIR/bin"
