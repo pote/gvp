@@ -23,48 +23,125 @@ COMMANDS
     source gvp      Modifies GOPATH and GOBIN to use the .godeps directory.
     gvp version     Outputs version information.
     gvp help        Prints this message.
+    gvp in          The function that is called when executing "source gvp"
+    gvp out         Return the prompt to normal
 EOF
 }
 
-case "${1:-"in"}" in
-  "init")
-    echo ">> This command is deprecated, just run 'source gvp'."
-    mkdir -p .godeps/{src,pkg,bin}
-    ln -snf .godeps/bin bin
-    ;;
-  "version")
-    echo ">> gvp v0.2.0"
-    ;;
-  "in")
-    mkdir -p .godeps/{src,pkg,bin}
-    ln -snf .godeps/bin bin
+# Description: echoes the prompt prefix as a string
+# Arguments: none
+# Returns (echoes): current prompt
+function current_prompt() {
+    echo $PS1
+}
 
-    GVP_DIR="$(pwd)/.godeps"
-    GOBIN="$GVP_DIR/bin"
-    GOPATH="$GVP_DIR:$PWD:$GOPATH"
-    PATH="$GOBIN:$PATH"
+# Description: store the current prompt as a backup in as many places as we can!
+# Arguments: none
+# Returns (echoes): none
+function store_current_prompt() {
+    store_prompt "$(current_prompt)"
+}
 
-    export GOBIN GOPATH GVP_NAME PATH
-    echo ">> Local GOPATH set."
+# Description: store the provided prompt as a backup in as many places as we can!
+# Arguments: prompt to store
+# Returns (echoes): none
+function store_prompt() {
+    PROMPT_MANIPULATION_OLD=$1
+    export PROMPT_MANIPULATION_OLD
+    # env works where export doesn't if you spawn another process
+    env PROMPT_MANIPULATION_OLD=$1 > /dev/null
+    # store locally in case environment is manipulated during run
+    prompt_manipulation_old=$1
+}
 
-    if [[ -n $2 ]]; then
-      "${@:2}"
+# Description: The inverse function of store_prompt, deletes all stored variables
+# Arguments: none
+# Returns (echoes): none
+function unstore_prompt() {
+    unset '$prompt_manipulation_old'
+    unset '$PROMPT_MANIPULATION_OLD'
+}
+
+# Description: Prefixes the user's shell prompt with a given string.
+# Arguments: string to put in front of the prompt.
+# Returns (echoes): none
+function prefix_prompt() {
+    PS1=$1$PS1
+}
+
+# Description: Reset the prompt to whatever it was before your script ran.
+# The inverse of prefix_prompt.
+# Should be called every time you use one of the above functions.
+# Arguments: none
+# Returns (echoes): none
+function reset_prompt() {
+    if [ -z "$PROMPT_MANIPULATION_OLD" ] && [ -z "$old" ]; then
+        echo "[ERROR] There was no old prompt to reset to!"
+    elif [ -n "$prompt_manipulation_old" ]; then
+        PS1=$prompt_manipulation_old
+        export PS1
+    elif [ -n "$PROMPT_MANIPULATION_OLD" ]; then
+        PS1=$PROMPT_MANIPULATION_OLD
+        export PS1
     fi
-    ;;
-  "help")
-    usage
-    ;;
-  *)
-    ## Support for Plugins: if command is unknown search for a gvp-command executable.
-    if command -v "gvp-$1" > /dev/null
-    then
-      plugin=$1 &&
-      shift     &&
-      gvp-$plugin $@ &&
-      exit
-    else
-      echo ">> Unknown command."
-      usage && exit 1
-    fi
-    ;;
-esac
+    unstore_prompt
+}
+
+# Description: Core logic.
+# Arguments: $1 is the subcommand: "version" | "in" | "out" | "help"
+# $2 is a command to be run, only if $1 is "in"
+# Returns (echoes): none
+function gvp() {
+    case "$1" in
+    "version")
+        echo ">> gvp v0.3.0" &&
+        exit 0
+        ;;
+    "help")
+        usage
+        exit 0
+        ;;
+    "") ;& # This was sourced, no command was provided
+    "in")
+        # manipulate the user's prompt like pyenv
+        store_current_prompt
+        prefix_prompt "(gvp)"
+
+        # make the required directories and setup environment variables
+        mkdir -p .godeps/{src,pkg,bin}
+        ln -snf .godeps/bin bin
+
+        GVP_DIR="$(pwd)/.godeps"
+        GOBIN="$GVP_DIR/bin"
+        GOPATH="$GVP_DIR:$PWD:$GOPATH"
+        PATH="$GOBIN:$PATH"
+
+        export GOBIN GOPATH GVP_NAME PATH
+        echo ">> Local GOPATH set."
+
+        # If the user has typed another command, execute it
+        if [ -n "$2" ]; then
+            "${@:2}"
+        fi
+        ;;
+    "out")
+        reset_prompt
+        ;;
+    *)
+        # Support for Plugins: if command is unknown search for a gvp-command executable.
+        if command -v "gvp-$1" > /dev/null
+        then
+            plugin=$1 &&
+                shift     &&
+                gvp-$plugin $@ &&
+                exit
+        else
+            echo ">> Unknown command."
+            usage
+        fi
+        ;;
+    esac
+}
+
+# If this file has been sourced, pass all args to the function
+gvp "$@"

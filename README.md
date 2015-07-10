@@ -17,11 +17,11 @@ gvp is a companion tool to [gpm](http://github.com/pote/gpm) but both tools can 
 $ brew install gvp
 ```
 
-### Install in *nix
+### Install in *nix (preferred method)
 
 ```bash
 $ git clone https://github.com/pote/gvp.git && cd gvp
-$ git checkout v0.1.0 # You can ignore this part if you want to install HEAD.
+$ git checkout v0.3.0 # You can ignore this part if you want to install HEAD.
 $ ./configure
 $ make install
 ```
@@ -30,16 +30,23 @@ $ make install
 
 Since `gvp` is a script and runs in a child environment of your shell, the latter will not take the env changes unless you `source` them.
 
+First,
 ```shell
 $ source gvp
 ```
 
-### Commands
-
+After `gvp` has been sourced, these commands are available:
 ```shell
-source gvp    Modifies GOPATH, GOBIN and PATH to use the .godeps directory.
-gvp version   Outputs version information.
-gvp help      Prints this message.
+usage: gvp [COMMAND]
+
+[...]
+
+COMMANDS
+    source gvp      Modifies GOPATH and GOBIN to use the .godeps directory.
+    gvp version     Outputs version information.
+    gvp help        Prints this message.
+    gvp in          The function that is called when executing "source gvp"
+    gvp out         Return the prompt to normal
 ```
 
 ### PLugins
