@@ -10,15 +10,23 @@ gvp is a companion tool to [gpm][gpm] but both tools can be used independently f
 
 ![gpm + gvp usage](https://raw.github.com/pote/gpm/master/gpm_install.gif)
 
+### Installation
 
-### Install in *nix (preferred method)
+#### Install in *nix (preferred method)
 
 ```bash
 $ git clone https://github.com/pote/gvp.git && cd gvp
-$ git checkout v0.3.0 # You can ignore this part if you want to install HEAD.
+$ git checkout v0.2.1 # You can ignore this part if you want to install HEAD.
 $ ./configure
 $ make install
 ```
+
+#### Install via Homebrew
+
+```bash
+$ brew install gvp
+```
+
 
 ### Usage
 
@@ -41,12 +49,6 @@ COMMANDS
     gvp help        Prints this message.
     gvp in          The function that is called when executing "source gvp"
     gvp out         Return the prompt to normal
-```
-
-### Install via Homebrew
-
-```bash
-$ brew install gvp
 ```
 
 ### Using with [autoenv][autoenv]
