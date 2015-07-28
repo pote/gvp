@@ -1,6 +1,7 @@
+#!/usr/bin/env bash
 . assert.sh
 
-GVP=../bin/gvp
+gvp=../bin/gvp
 
 ## gvp init should create a .godeps/ directory.
 assert_raises "$GVP init"
@@ -9,18 +10,17 @@ assert_raises "[ -d .godeps ]"
 rm -rf .godeps
 
 ## source gvp in should change the original GOPATH and associated Env variables
-## as well as creating a .godeps directory 
-ORIGINAL_GOPATH=$GOPATH
-ORIGINAL_GOBIN=$GOBIN
-ORIGINAL_PATH=$PATH
+## as well as creating a .godeps directory
+original_GOPATH=$GOPATH
+original_GOBIN=$GOBIN
+original_PATH=$PATH
 
-source $GVP in
+. "$gvp"
 
 assert_raises "[ -d .godeps ]"
-assert "echo $GOPATH" "$PWD/.godeps:$PWD:$ORIGINAL_GOPATH"
+assert "echo $GOPATH" "$PWD/.godeps:$PWD:$original_GOPATH"
 assert "echo $GOBIN"  "$PWD/.godeps/bin"
-assert "echo $PATH"   "$PWD/.godeps/bin:$ORIGINAL_PATH"
-
+assert "echo $PATH"   "$PWD/.godeps/bin:$original_PATH"
 
 ## Cleanup
 rm -rf .godeps

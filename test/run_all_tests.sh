@@ -1,18 +1,29 @@
 #!/usr/bin/env bash
 
+# keep track of if all the tests passed or if one failed
 status=0
-echo ">> Now running all tests"
+
+# prefix all calls to echo with this string
+pre=">>"
+
+echo "$pre Now running all tests"
 for test in *test.sh
 do
-  echo ">> Current test: $test"
-  ./$test || status=$?
+  echo "$pre Current test: $test"
+  "./$test"
+  if [ ! $? -eq 0 ]; then
+    status=$?
+    echo "$pre Test failed: $test"
+  fi
 done
-echo ">> All Done"
+echo "$pre All Done"
 
 if [ $status == 0 ]
 then
-  echo ">> Build status: passing"
+  echo "$pre Build status: passing"
 else
-  echo ">> Build status: failing"
+  echo "$pre Build status: failing"
+  echo "Tests exited with code: $status"
 fi
+
 exit $status
