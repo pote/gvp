@@ -18,7 +18,7 @@ original_PATH=$PATH
 . "$gvp"
 
 assert_raises "[ -d .godeps ]"
-assert "echo $GOPATH" "$PWD/.godeps:$PWD:$original_GOPATH"
+assert "echo $GOPATH" "$PWD/.godeps:$PWD${original_GOPATH:+:}$original_GOPATH"
 assert "echo $GOBIN"  "$PWD/.godeps/bin"
 assert "echo $PATH"   "$PWD/.godeps/bin:$original_PATH"
 
