@@ -75,7 +75,7 @@ function prefix_prompt() {
 # Arguments: none
 # Returns (echoes): none
 function reset_prompt() {
-    if [ -z "$PROMPT_MANIPULATION_OLD" ] && [ -z "$old" ]; then
+    if [ -z "$PROMPT_MANIPULATION_OLD" ] && [ -z "$prompt_manipulation_old" ]; then
         echo "[ERROR] There was no old prompt to reset to!"
     elif [ -n "$prompt_manipulation_old" ]; then
         PS1="$prompt_manipulation_old"
@@ -133,7 +133,7 @@ function gvp() {
         then
             plugin=$1 &&
                 shift     &&
-                gvp-$plugin $@ &&
+                gvp-"$plugin" "$@" &&
                 exit
         else
             echo ">> Unknown command."
