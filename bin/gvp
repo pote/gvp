@@ -113,7 +113,7 @@ function gvp() {
 
         GVP_DIR="$(pwd)/.godeps"
         GOBIN="$GVP_DIR/bin"
-        GOPATH="$GVP_DIR:$PWD:$GOPATH"
+        GOPATH="$GVP_DIR:$PWD${GOPATH:+:}$GOPATH"
         PATH="$GOBIN:$PATH"
 
         export GOBIN GOPATH GVP_NAME PATH
