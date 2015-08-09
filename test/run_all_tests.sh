@@ -6,6 +6,11 @@ status=0
 # prefix all calls to echo with this string
 pre=">>"
 
+if [[ ! $(basename "$PWD") =~ test ]]; then
+  echo "Please run these tests from inside the ./test directory"
+  exit 1
+fi
+
 echo "$pre Now running all tests"
 for test in *test.sh
 do
