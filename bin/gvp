@@ -32,7 +32,7 @@ EOF
 # Arguments: none
 # Returns (echoes): current prompt
 function current_prompt() {
-    echo $PS1
+    echo "$PS1"
 }
 
 # Description: store the current prompt as a backup in as many places as we can!
@@ -46,27 +46,27 @@ function store_current_prompt() {
 # Arguments: prompt to store
 # Returns (echoes): none
 function store_prompt() {
-    PROMPT_MANIPULATION_OLD=$1
+    PROMPT_MANIPULATION_OLD="$1"
     export PROMPT_MANIPULATION_OLD
     # env works where export doesn't if you spawn another process
-    env PROMPT_MANIPULATION_OLD=$1 > /dev/null
+    env PROMPT_MANIPULATION_OLD="$1" > /dev/null
     # store locally in case environment is manipulated during run
-    prompt_manipulation_old=$1
+    prompt_manipulation_old="$1"
 }
 
 # Description: The inverse function of store_prompt, deletes all stored variables
 # Arguments: none
 # Returns (echoes): none
 function unstore_prompt() {
-    unset '$prompt_manipulation_old'
-    unset '$PROMPT_MANIPULATION_OLD'
+    unset prompt_manipulation_old
+    unset PROMPT_MANIPULATION_OLD
 }
 
 # Description: Prefixes the user's shell prompt with a given string.
 # Arguments: string to put in front of the prompt.
 # Returns (echoes): none
 function prefix_prompt() {
-    PS1=$1$PS1
+    PS1="$1$PS1"
 }
 
 # Description: Reset the prompt to whatever it was before your script ran.
@@ -75,13 +75,13 @@ function prefix_prompt() {
 # Arguments: none
 # Returns (echoes): none
 function reset_prompt() {
-    if [ -z "$PROMPT_MANIPULATION_OLD" ] && [ -z "$old" ]; then
+    if [ -z "$PROMPT_MANIPULATION_OLD" ] && [ -z "$prompt_manipulation_old" ]; then
         echo "[ERROR] There was no old prompt to reset to!"
     elif [ -n "$prompt_manipulation_old" ]; then
-        PS1=$prompt_manipulation_old
+        PS1="$prompt_manipulation_old"
         export PS1
     elif [ -n "$PROMPT_MANIPULATION_OLD" ]; then
-        PS1=$PROMPT_MANIPULATION_OLD
+        PS1="$PROMPT_MANIPULATION_OLD"
         export PS1
     fi
     unstore_prompt
@@ -133,7 +133,7 @@ function gvp() {
         then
             plugin=$1 &&
                 shift     &&
-                gvp-$plugin $@ &&
+                gvp-"$plugin" "$@" &&
                 exit
         else
             echo ">> Unknown command."
