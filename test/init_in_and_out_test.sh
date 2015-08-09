@@ -4,7 +4,7 @@
 gvp=../bin/gvp
 
 ## gvp init should create a .godeps/ directory.
-assert_raises "$GVP init"
+assert_raises "$gvp init"
 assert_raises "[ -d .godeps ]"
 ## Cleanup
 rm -rf .godeps
