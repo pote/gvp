@@ -101,7 +101,7 @@ function gvp() {
         usage
         exit 0
         ;;
-    "") ;& # This was sourced, no command was provided
+    "") ;; # This was sourced, no command was provided
     "in")
         # manipulate the user's prompt like pyenv
         store_current_prompt
