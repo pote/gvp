@@ -68,17 +68,6 @@ function prefix_prompt() {
     PS1="$1$PS1"
 }
 
-# Description: Check bash version.
-# Arguments: none
-# Returns (echoes): none
-function check_bash_version()
-{
-    if ((BASH_VERSINFO[0] < 4)); then
-        echo "Sorry, you need at least bash-4.0 to run this script." >&2;
-        exit 0;
-    fi
-}
-
 # Description: Reset the prompt to whatever it was before your script ran.
 # The inverse of prefix_prompt.
 # Should be called every time you use one of the above functions.
