@@ -4,8 +4,8 @@ all:
 	-@echo Nothing to do...
 
 install:
-	install -d $(prefix)/bin
-	install -m 0755 ./bin/gvp $(prefix)/bin
+	install -d $(DESTDIR)$(prefix)/bin
+	install -m 0755 ./bin/gvp $(DESTDIR)$(prefix)/bin/$(exec)
 
 test:
 	cd test && ./run_all_tests.sh
