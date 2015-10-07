@@ -1,5 +1,4 @@
 #!/bin/bash
-
 usage() {
 cat << EOF
 usage: gvp [COMMAND]
@@ -87,6 +86,31 @@ function reset_prompt() {
     unstore_prompt
 }
 
+# Description: Make the required directories and setup environment variables
+# Arguments: none
+# Returns (echoes): none
+function gvp_in(){
+    # manipulate the user's prompt like pyenv
+    store_current_prompt
+    prefix_prompt "(gvp)"
+
+    mkdir -p .godeps/{src,pkg,bin}
+    ln -snf .godeps/bin bin
+
+    GVP_DIR="$(pwd)/.godeps"
+    GOBIN="$GVP_DIR/bin"
+    GOPATH="$GVP_DIR:$PWD${GOPATH:+:}$GOPATH"
+    PATH="$GOBIN:$PATH"
+
+    export GOBIN GOPATH GVP_NAME PATH
+    echo ">> Local GOPATH set."
+
+    # If the user has typed another command, execute it
+    if [ -n "$2" ]; then
+        "${@:2}"
+    fi
+}
+
 # Description: Core logic.
 # Arguments: $1 is the subcommand: "version" | "in" | "out" | "help"
 # $2 is a command to be run, only if $1 is "in"
@@ -101,28 +125,11 @@ function gvp() {
         usage
         exit 0
         ;;
-    "") ;& # This was sourced, no command was provided
+    "")
+        gvp_in
+        ;; # This was sourced, no command was provided
     "in")
-        # manipulate the user's prompt like pyenv
-        store_current_prompt
-        prefix_prompt "(gvp)"
-
-        # make the required directories and setup environment variables
-        mkdir -p .godeps/{src,pkg,bin}
-        ln -snf .godeps/bin bin
-
-        GVP_DIR="$(pwd)/.godeps"
-        GOBIN="$GVP_DIR/bin"
-        GOPATH="$GVP_DIR:$PWD${GOPATH:+:}$GOPATH"
-        PATH="$GOBIN:$PATH"
-
-        export GOBIN GOPATH GVP_NAME PATH
-        echo ">> Local GOPATH set."
-
-        # If the user has typed another command, execute it
-        if [ -n "$2" ]; then
-            "${@:2}"
-        fi
+        gvp_in
         ;;
     "out")
         reset_prompt
